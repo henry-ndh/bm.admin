@@ -30,7 +30,9 @@ import {
 import { ChevronLeftIcon, ChevronRightIcon } from 'lucide-react';
 import React from 'react';
 import { useSearchParams } from 'react-router-dom';
-
+import PopupModal from '@/components/shared/popup-modal';
+import StudentCreateForm from '@/pages/students/components/student-forms/student-create-form';
+import { Input } from '../ui/input';
 interface DataTableProps<TData, TValue> {
   columns: ColumnDef<TData, TValue>[];
   data: TData[];
@@ -45,6 +47,8 @@ export default function DataTable<TData, TValue>({
   pageSizeOptions = [10, 20, 30, 40, 50]
 }: DataTableProps<TData, TValue>) {
   const [searchParams, setSearchParams] = useSearchParams();
+  const [searchTerm, setSearchTerm] = React.useState(''); // Thêm state cho searchTerm
+
   // Search params
   const page = searchParams?.get('page') ?? '1';
   const pageAsNumber = Number(page);
@@ -67,11 +71,19 @@ export default function DataTable<TData, TValue>({
       page: (pageIndex + 1).toString(), // Update the page number (assuming pageIndex is 0-based)
       limit: pageSize.toString() // Update the limit
     });
-    // if search is there setting filter value
   }, [pageIndex, pageSize, searchParams, setSearchParams]);
 
+  const filteredData = React.useMemo(() => {
+    return data.filter((item: any) => {
+      return Object.values(item)
+        .join(' ')
+        .toLowerCase()
+        .includes(searchTerm.toLowerCase());
+    });
+  }, [data, searchTerm]);
+
   const table = useReactTable({
-    data,
+    data: filteredData,
     columns,
     pageCount: pageCount ?? -1,
     getCoreRowModel: getCoreRowModel(),
@@ -87,6 +99,24 @@ export default function DataTable<TData, TValue>({
 
   return (
     <>
+      <div className="flex items-center justify-between gap-2 py-4">
+        <div className="flex flex-1 gap-4">
+          <Input
+            type="text"
+            placeholder="Search..."
+            value={searchTerm}
+            onChange={(e) => setSearchTerm(e.target.value)}
+            className="w-1/3 rounded-md border px-4 py-2"
+          />
+        </div>
+        <div className="flex gap-3">
+          <PopupModal
+            renderModal={(onClose) => (
+              <StudentCreateForm modalClose={onClose} />
+            )}
+          />
+        </div>
+      </div>
       <ScrollArea className="h-[calc(80vh-220px)] rounded-md border md:h-[calc(80dvh-80px)]">
         <Table className="relative">
           <TableHeader>
