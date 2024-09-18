@@ -14,15 +14,17 @@ import {
 } from '@/components/ui/tabs.js';
 import RecentSales from './components/recent-sales.js';
 import Overview from './components/overview.js';
-import UserNav from '@/components/shared/user-nav.jsx';
-import { ModeToggle } from '@/components/shared/theme-toggle.js';
+import BasePages from '@/components/shared/base-pages.js';
+
 export default function DashboardPage() {
   return (
     <>
-      <PageHead title="Dashboard | App" />
-      <div className="max-h-screen flex-1 space-y-4 overflow-y-auto p-4 pt-6 md:p-8">
-        <div className="flex items-center justify-between space-y-2">
-          <h2 className="text-3xl font-bold tracking-tight">
+      <BasePages
+        className="relative max-h-screen flex-1 space-y-4 overflow-y-auto p-4"
+        pageHead="Thống kê | Happy Kids"
+      >
+        <div className="top-4 flex items-center justify-between space-y-2 md:absolute">
+          <h2 className=" text-3xl font-bold tracking-tight">
             Hi, Welcome back 👋
           </h2>
         </div>
@@ -160,7 +162,7 @@ export default function DashboardPage() {
             </div>
           </TabsContent>
         </Tabs>
-      </div>
+      </BasePages>
     </>
   );
 }

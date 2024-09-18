@@ -9,7 +9,7 @@ import {
 } from '@/components/ui/breadcrumb';
 import { Fragment } from 'react';
 
-type BreadcrumbItemProps = {
+export type BreadcrumbItemProps = {
   title: string;
   link: string;
 };

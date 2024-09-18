@@ -1,9 +1,9 @@
-import PageHead from '@/components/shared/page-head';
 import { useGetStudents } from './queries/queries';
 import StudentsTable from './components/students-table';
 import { useSearchParams } from 'react-router-dom';
 import { DataTableSkeleton } from '@/components/shared/data-table-skeleton';
 import { Breadcrumbs } from '@/components/shared/breadcrumbs';
+import BasePages from '@/components/shared/base-pages';
 
 export default function StudentPage() {
   const [searchParams] = useSearchParams();
@@ -29,20 +29,20 @@ export default function StudentPage() {
   }
 
   return (
-    <div className="p-4 md:p-8">
-      <PageHead title="Student Management | App" />
-      <Breadcrumbs
-        items={[
-          { title: 'Dashboard', link: '/' },
-          { title: 'Students', link: '/students' }
-        ]}
-      />
+    <BasePages
+      breadcrumbs={[
+        { title: 'Dashboard', link: '/' },
+        { title: 'Students', link: '/student' }
+      ]}
+      pageHead="Student Management | App"
+      className="p-4 md:px-8"
+    >
       <StudentsTable
         users={users}
         page={page}
         totalUsers={totalUsers}
         pageCount={pageCount}
       />
-    </div>
+    </BasePages>
   );
 }
