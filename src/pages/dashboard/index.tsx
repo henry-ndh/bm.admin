@@ -13,7 +13,9 @@ import {
   TabsTrigger
 } from '@/components/ui/tabs.js';
 import RecentSales from './components/recent-sales.js';
-
+import Overview from './components/overview.js';
+import UserNav from '@/components/shared/user-nav.jsx';
+import { ModeToggle } from '@/components/shared/theme-toggle.js';
 export default function DashboardPage() {
   return (
     <>
@@ -140,7 +142,9 @@ export default function DashboardPage() {
                 <CardHeader>
                   <CardTitle>Overview</CardTitle>
                 </CardHeader>
-                <CardContent className="pl-2">{/* <Overview /> */}</CardContent>
+                <CardContent className="pl-2">
+                  <Overview />
+                </CardContent>
               </Card>
               <Card className="col-span-4 md:col-span-3">
                 <CardHeader>
