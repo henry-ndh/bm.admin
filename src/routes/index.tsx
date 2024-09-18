@@ -9,6 +9,7 @@ const DashboardLayout = lazy(
 const SignInPage = lazy(() => import('@/pages/auth/signin'));
 const DashboardPage = lazy(() => import('@/pages/dashboard'));
 const StudentPage = lazy(() => import('@/pages/students'));
+const AdvisoryPage = lazy(() => import('@/pages/advisory'));
 const StudentDetailPage = lazy(
   () => import('@/pages/students/StudentDetailPage')
 );
@@ -42,6 +43,10 @@ export default function AppRouter() {
         {
           path: 'form',
           element: <FormPage />
+        },
+        {
+          path: 'advisory',
+          element: <AdvisoryPage />
         }
       ]
     }

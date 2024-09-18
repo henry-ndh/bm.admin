@@ -2,19 +2,25 @@ import { NavItem } from '@/types';
 
 export const navItems: NavItem[] = [
   {
-    title: 'Dashboard',
+    title: 'Trang chủ',
     href: '/',
     icon: 'dashboard',
     label: 'Dashboard'
   },
   {
-    title: 'Students',
+    title: 'Học sinh',
     href: '/student',
     icon: 'user',
     label: 'Student'
   },
   {
-    title: 'Login',
+    title: 'Tư vấn',
+    href: '/advisory',
+    icon: 'user',
+    label: 'Student'
+  },
+  {
+    title: 'Thoát',
     href: '/login',
     icon: 'login',
     label: 'Login'

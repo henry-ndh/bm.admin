@@ -1,20 +1,11 @@
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardHeader,
-  CardTitle
-} from '@/components/ui/card';
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import {
   Tabs,
   TabsContent,
   TabsList,
   TabsTrigger
 } from '@/components/ui/tabs.js';
-import RecentSales from './components/recent-sales.js';
-import Overview from './components/overview.js';
 import BasePages from '@/components/shared/base-pages.js';
-
 export const ListOverViewDashBoard = [
   {
     id: 1,
@@ -24,7 +15,7 @@ export const ListOverViewDashBoard = [
   }
 ];
 
-export default function DashboardPage() {
+export default function Advisory() {
   return (
     <>
       <BasePages
@@ -39,6 +30,7 @@ export default function DashboardPage() {
         <Tabs defaultValue="overview" className="space-y-4">
           <TabsList>
             <TabsTrigger value="overview">Tổng quan</TabsTrigger>
+
             <TabsTrigger value="analytics">Thống kê chi tiết</TabsTrigger>
           </TabsList>
           <TabsContent value="overview" className="space-y-4">
@@ -144,27 +136,6 @@ export default function DashboardPage() {
                   <p className="text-xs text-muted-foreground">
                     +201 since last hour
                   </p>
-                </CardContent>
-              </Card>
-            </div>
-            <div className="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-7">
-              <Card className="col-span-4">
-                <CardHeader>
-                  <CardTitle>Tổng quan</CardTitle>
-                </CardHeader>
-                <CardContent className="pl-2">
-                  <Overview />
-                </CardContent>
-              </Card>
-              <Card className="col-span-4 md:col-span-3">
-                <CardHeader>
-                  <CardTitle>Danh sách cần tư vấn</CardTitle>
-                  <CardDescription>
-                    Đang có 20 phụ huynh cần tư vấn
-                  </CardDescription>
-                </CardHeader>
-                <CardContent>
-                  <RecentSales />
                 </CardContent>
               </Card>
             </div>
