@@ -5,8 +5,8 @@ import {
   TabsTrigger
 } from '@/components/ui/tabs.js';
 import BasePages from '@/components/shared/base-pages.js';
-import { OverViewTab } from './overview/index.js';
-import { AnalyticsTab } from './analytics/index.js';
+import { OverViewTab } from './components/overview/index.js';
+import { AnalyticsTab } from './components/analytics/index.js';
 
 export default function DashboardPage() {
   return (

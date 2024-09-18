@@ -1,10 +1,10 @@
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 
-import SalaryGraph from '../components/salary-graph.js';
+import SalaryGraph from '../salary-graph.js';
 
-export function AnalyticsTab() {
+export default function Salary() {
   return (
-    <div className="grid space-y-4">
+    <>
       <Card className="w-full md:w-1/3">
         <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
           <CardTitle className="text-sm font-medium">Tổng doanh thu</CardTitle>
@@ -23,7 +23,7 @@ export function AnalyticsTab() {
         </CardHeader>
         <CardContent>
           <div className="text-2xl font-bold">23.543.000 VNĐ</div>
-          <p className="text-xs text-muted-foreground">
+          <p className="text-xs text-green-500 text-muted-foreground">
             +20.1 % so với tháng trước
           </p>
         </CardContent>
@@ -38,6 +38,6 @@ export function AnalyticsTab() {
           </CardContent>
         </Card>
       </div>
-    </div>
+    </>
   );
 }

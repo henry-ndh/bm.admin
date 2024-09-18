@@ -5,8 +5,8 @@ import {
   CardHeader,
   CardTitle
 } from '@/components/ui/card';
-import RecentSales from './components/recent-sales.js';
-import Overview from './components/overview.js';
+import RecentSales from './recent-sales.js';
+import Overview from './overview.js';
 import {
   Advisory,
   DoanhThu,
