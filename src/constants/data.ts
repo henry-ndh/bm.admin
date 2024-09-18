@@ -14,11 +14,18 @@ export const navItems: NavItem[] = [
     label: 'Student'
   },
   {
+    title: 'Điểm danh',
+    href: '/checkin',
+    icon: 'clipboardCheck',
+    label: 'Checkin'
+  },
+  {
     title: 'Tư vấn',
     href: '/advisory',
     icon: 'phone',
-    label: 'Student'
+    label: 'Advisory'
   },
+
   {
     title: 'Thoát',
     href: '/login',

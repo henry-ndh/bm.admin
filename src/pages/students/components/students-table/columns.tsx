@@ -25,23 +25,31 @@ export const columns: ColumnDef<Employee>[] = [
   },
   {
     accessorKey: 'first_name',
-    header: 'NAME'
+    header: 'Tên học sinh'
   },
   {
     accessorKey: 'country',
-    header: 'COUNTRY'
+    header: 'Địa chỉ'
   },
   {
-    accessorKey: 'email',
-    header: 'EMAIL'
+    accessorKey: 'parent_number',
+    header: 'Số điện thoại phụ huynh'
   },
   {
-    accessorKey: 'job',
-    header: 'COMPANY'
+    accessorKey: 'parent_name',
+    header: 'Tên phụ huynh'
   },
   {
     accessorKey: 'gender',
-    header: 'GENDER'
+    header: 'Giới tính'
+  },
+  {
+    accessorKey: 'birthday',
+    header: 'Ngày sinh'
+  },
+  {
+    accessorKey: 'day_join',
+    header: 'Ngày tham gia'
   },
   {
     id: 'actions',

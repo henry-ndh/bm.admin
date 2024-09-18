@@ -29,7 +29,8 @@ import {
   User2Icon,
   UserX2Icon,
   X,
-  Phone
+  Phone,
+  ClipboardCheck
 } from 'lucide-react';
 
 export type Icon = LucideIcon;
@@ -80,5 +81,6 @@ export const Icons = {
   ),
   twitter: Twitter,
   check: Check,
-  phone: Phone
+  phone: Phone,
+  clipboardCheck: ClipboardCheck
 };

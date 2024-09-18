@@ -47,8 +47,7 @@ export default function DataTable<TData, TValue>({
   pageSizeOptions = [10, 20, 30, 40, 50]
 }: DataTableProps<TData, TValue>) {
   const [searchParams, setSearchParams] = useSearchParams();
-  const [searchTerm, setSearchTerm] = React.useState(''); // Thêm state cho searchTerm
-
+  const [searchTerm, setSearchTerm] = React.useState('');
   // Search params
   const page = searchParams?.get('page') ?? '1';
   const pageAsNumber = Number(page);

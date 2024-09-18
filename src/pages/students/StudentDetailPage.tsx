@@ -4,27 +4,13 @@ import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader } from '@/components/ui/card';
 import { useRouter } from '@/routes/hooks';
 import { ChevronLeftIcon, ShareIcon } from 'lucide-react';
-import { useSearchParams } from 'react-router-dom';
 import InterestChannel from './components/interest-channel';
-import StudentFeedTable from './components/student-feed-table';
-import { useGetStudents } from './queries/queries';
 
 export default function StudentDetailPage() {
-  const [searchParams] = useSearchParams();
-  const page = Number(searchParams.get('page') || 1);
-  const pageLimit = Number(searchParams.get('limit') || 10);
-  const country = searchParams.get('search') || null;
-  const offset = (page - 1) * pageLimit;
-  const { data, isLoading } = useGetStudents(offset, pageLimit, country);
-  const users = data?.users;
-  const totalUsers = data?.total_users; //1000
-  const pageCount = Math.ceil(totalUsers / pageLimit);
   const router = useRouter();
-  if (isLoading) {
-    return <h1>Loading!!!</h1>;
-  }
+
   return (
-    <div className="p-10">
+    <div className="h-full overflow-y-auto p-10">
       <div className="flex items-center justify-between">
         <Heading title={'Personal Details'} />
         <div className="flex justify-end gap-3">
@@ -136,12 +122,6 @@ export default function StudentDetailPage() {
         <InterestChannel title="Interest" />
         <InterestChannel title="Interest" />
       </div>
-      <StudentFeedTable
-        users={users}
-        page={page}
-        totalUsers={totalUsers}
-        pageCount={pageCount}
-      />
     </div>
   );
 }
