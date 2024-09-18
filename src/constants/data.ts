@@ -16,7 +16,7 @@ export const navItems: NavItem[] = [
   {
     title: 'Tư vấn',
     href: '/advisory',
-    icon: 'user',
+    icon: 'phone',
     label: 'Student'
   },
   {
