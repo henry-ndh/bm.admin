@@ -31,9 +31,9 @@ export default function CheckInPage() {
     <BasePages
       breadcrumbs={[
         { title: 'Trang chủ', link: '/' },
-        { title: 'Học sinh', link: '/student' }
+        { title: 'Điểm danh', link: '/checkin-student' }
       ]}
-      pageHead="Quản lý học sinh | Happy Kids"
+      pageHead="Quản lý điểm danh | Happy Kids"
       className="p-4 md:px-8"
     >
       <StudentsTable

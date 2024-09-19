@@ -1,36 +1,62 @@
-import { AlertModal } from '@/components/shared/alert-modal';
 import { Button } from '@/components/ui/button';
-import { Input } from '@/components/ui/input';
 import { Employee } from '@/constants/data';
-import { useRouter } from '@/routes/hooks';
 import { useState } from 'react';
-
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogFooter,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger
+} from '@/components/ui/dialog';
 interface CellActionProps {
   data: Employee;
   isActive: boolean;
 }
 
 export const CellAction: React.FC<CellActionProps> = ({ data, isActive }) => {
-  const [loading] = useState(false);
   const [open, setOpen] = useState(false);
-  const router = useRouter();
-
-  const onConfirm = async () => {};
 
   return (
     <>
-      <AlertModal
-        isOpen={open}
-        onClose={() => setOpen(false)}
-        onConfirm={onConfirm}
-        loading={loading}
-      />
-
       <div className="flex gap-4">
-        <Input disabled={isActive} className=" w-[120px] "></Input>
-        <Button disabled={isActive} className="text bg-green-500">
-          Thêm
-        </Button>
+        <Dialog open={open} onOpenChange={setOpen}>
+          <DialogTrigger asChild>
+            <Button
+              variant="outline"
+              className="bg-green-500 text-white hover:bg-green-600 hover:text-white"
+            >
+              Xem chi tiết
+            </Button>
+          </DialogTrigger>
+          <DialogContent className="sm:max-w-[425px]">
+            <DialogHeader>
+              <DialogTitle>Chi tiết điểm danh</DialogTitle>
+              <DialogDescription>
+                Xem các ngày nghỉ của học sinh theo thời gian
+              </DialogDescription>
+            </DialogHeader>
+            <p className="flex text-right">
+              Tên học sinh: <span>{data.first_name}</span>
+            </p>
+            <p className="flex text-right">Danh sách ngày nghỉ</p>
+            <ul>
+              <li>Ngày 1: 1/1/2021</li>
+              <li>Ngày 2: 2/1/2021</li>
+              <li>Ngày 3: 3/1/2021</li>
+            </ul>
+            <DialogFooter>
+              <Button
+                type="submit"
+                className="bg-green-500 text-white hover:bg-green-600"
+                onClick={() => setOpen(false)}
+              >
+                Xong
+              </Button>
+            </DialogFooter>
+          </DialogContent>
+        </Dialog>
       </div>
     </>
   );

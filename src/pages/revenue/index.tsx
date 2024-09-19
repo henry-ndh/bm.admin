@@ -3,7 +3,14 @@ import StudentsTable from './checkin-table/index';
 import { useSearchParams } from 'react-router-dom';
 import { DataTableSkeleton } from '@/components/shared/data-table-skeleton';
 import BasePages from '@/components/shared/base-pages';
-
+import {
+  Tabs,
+  TabsContent,
+  TabsList,
+  TabsTrigger
+} from '@/components/ui/tabs.js';
+import Student from './components/students/index';
+import Teacher from './components/teachers/index';
 export default function CheckInPage() {
   const [searchParams] = useSearchParams();
   const page = Number(searchParams.get('page') || 1);
@@ -36,6 +43,14 @@ export default function CheckInPage() {
       pageHead="Quản lý học sinh | Happy Kids"
       className="p-4 md:px-8"
     >
+      <Tabs defaultValue="student" className="space-y-4">
+        <TabsList>
+          <TabsTrigger value="student">Học sinh</TabsTrigger>
+          <TabsTrigger value="teacher">Giáo viên</TabsTrigger>
+        </TabsList>
+        <Student />
+        <Teacher />
+      </Tabs>
       <StudentsTable
         users={users}
         page={page}

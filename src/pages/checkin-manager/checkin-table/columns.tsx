@@ -32,15 +32,8 @@ export const columns: ColumnDef<Employee>[] = [
     enableSorting: true
   },
   {
-    accessorKey: 'Status',
-    header: 'Trạng thái',
-    cell: ({ row }) => (
-      <CellActionStatus
-        data={row.original}
-        isActive={row.getIsSelected()}
-        status={row.getIsSelected()}
-      />
-    ),
+    accessorKey: 'Day_on',
+    header: 'Số ngày học',
     enableSorting: true,
     sortingFn: (rowA, rowB) => {
       const statusA = rowA.getIsSelected();
@@ -52,9 +45,12 @@ export const columns: ColumnDef<Employee>[] = [
     }
   },
   {
-    accessorKey: 'Note',
-    header: 'Ghi chú',
-    id: 'actions12',
+    accessorKey: 'Day_off',
+    header: 'Số ngày nghỉ',
+    id: 'actions12'
+  },
+  {
+    accessorKey: 'actions',
     cell: ({ row }) => (
       <CellAction data={row.original} isActive={row.getIsSelected()} />
     )
