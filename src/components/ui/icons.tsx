@@ -30,7 +30,8 @@ import {
   UserX2Icon,
   X,
   Phone,
-  ClipboardCheck
+  ClipboardCheck,
+  NotepadText
 } from 'lucide-react';
 
 export type Icon = LucideIcon;
@@ -82,5 +83,6 @@ export const Icons = {
   twitter: Twitter,
   check: Check,
   phone: Phone,
-  clipboardCheck: ClipboardCheck
+  clipboardCheck: ClipboardCheck,
+  notepadText: NotepadText
 };

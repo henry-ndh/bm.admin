@@ -26,7 +26,9 @@ import {
   getCoreRowModel,
   getFilteredRowModel,
   getPaginationRowModel,
-  useReactTable
+  useReactTable,
+  getSortedRowModel,
+  SortingState
 } from '@tanstack/react-table';
 import { ChevronLeftIcon, ChevronRightIcon } from 'lucide-react';
 import { useSearchParams } from 'react-router-dom';
@@ -38,13 +40,15 @@ interface DataTableProps<TData, TValue> {
   data: TData[];
   pageSizeOptions?: number[];
   pageCount: number;
+  showAdd?: boolean;
 }
 
 export default function DataTable<TData, TValue>({
   columns,
   data,
   pageCount,
-  pageSizeOptions = [10, 20, 30, 40, 50]
+  pageSizeOptions = [10, 20, 30, 40, 50],
+  showAdd = true
 }: DataTableProps<TData, TValue>) {
   const [searchParams, setSearchParams] = useSearchParams();
   const [searchTerm, setSearchTerm] = useState('');
@@ -61,6 +65,8 @@ export default function DataTable<TData, TValue>({
     pageIndex: fallbackPage - 1,
     pageSize: fallbackPerPage
   });
+
+  const [sorting, setSorting] = useState<SortingState>([]);
 
   useEffect(() => {
     // Update the URL with the new page number and limit
@@ -87,13 +93,15 @@ export default function DataTable<TData, TValue>({
     getCoreRowModel: getCoreRowModel(),
     getFilteredRowModel: getFilteredRowModel(),
     state: {
-      pagination: { pageIndex, pageSize }
+      pagination: { pageIndex, pageSize },
+      sorting
     },
-
     onPaginationChange: setPagination,
     getPaginationRowModel: getPaginationRowModel(),
     manualPagination: true,
-    manualFiltering: true
+    manualFiltering: true,
+    getSortedRowModel: getSortedRowModel(),
+    onSortingChange: setSorting
   });
 
   console.log(table.getRowModel());
@@ -111,11 +119,13 @@ export default function DataTable<TData, TValue>({
           />
         </div>
         <div className="flex gap-3">
-          <PopupModal
-            renderModal={(onClose) => (
-              <StudentCreateForm modalClose={onClose} />
-            )}
-          />
+          {showAdd && (
+            <PopupModal
+              renderModal={(onClose) => (
+                <StudentCreateForm modalClose={onClose} />
+              )}
+            />
+          )}
         </div>
       </div>
       <ScrollArea className="h-[calc(80vh-220px)] rounded-md border md:h-[calc(80dvh-80px)]">
@@ -125,13 +135,34 @@ export default function DataTable<TData, TValue>({
               <TableRow key={headerGroup.id}>
                 {headerGroup.headers.map((header) => {
                   return (
-                    <TableHead key={header.id}>
+                    <TableHead
+                      key={header.id}
+                      onClick={header.column.getToggleSortingHandler()}
+                      title={
+                        header.column.getCanSort()
+                          ? header.column.getNextSortingOrder() === 'asc'
+                            ? 'Sort ascending'
+                            : header.column.getNextSortingOrder() === 'desc'
+                              ? 'Sort descending'
+                              : 'Clear sort'
+                          : undefined
+                      }
+                      className={
+                        header.column.getCanSort()
+                          ? 'cursor-pointer select-none'
+                          : ''
+                      }
+                    >
                       {header.isPlaceholder
                         ? null
                         : flexRender(
                             header.column.columnDef.header,
                             header.getContext()
                           )}
+                      {{
+                        asc: ' 🔼',
+                        desc: ' 🔽'
+                      }[header.column.getIsSorted() as string] ?? null}
                     </TableHead>
                   );
                 })}

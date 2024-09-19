@@ -4,7 +4,7 @@ import { useSearchParams } from 'react-router-dom';
 import { DataTableSkeleton } from '@/components/shared/data-table-skeleton';
 import BasePages from '@/components/shared/base-pages';
 
-export default function CheckInPage() {
+export default function CheckInManagerPage() {
   const [searchParams] = useSearchParams();
   const page = Number(searchParams.get('page') || 1);
   const pageLimit = Number(searchParams.get('limit') || 10);

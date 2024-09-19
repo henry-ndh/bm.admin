@@ -14,7 +14,7 @@ const StudentDetailPage = lazy(
   () => import('@/pages/students/StudentDetailPage')
 );
 const CheckInPage = lazy(() => import('@/pages/checkin'));
-
+const CheckInManagerPage = lazy(() => import('@/pages/checkin-manager'));
 // ----------------------------------------------------------------------
 
 export default function AppRouter() {
@@ -50,8 +50,12 @@ export default function AppRouter() {
           element: <AdvisoryPage />
         },
         {
-          path: 'checkin',
+          path: 'checkin-student',
           element: <CheckInPage />
+        },
+        {
+          path: 'checkin-manager',
+          element: <CheckInManagerPage />
         }
       ]
     }

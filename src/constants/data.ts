@@ -15,8 +15,14 @@ export const navItems: NavItem[] = [
   },
   {
     title: 'Điểm danh',
-    href: '/checkin',
+    href: '/checkin-student',
     icon: 'clipboardCheck',
+    label: 'Checkin'
+  },
+  {
+    title: 'Quản lý điểm danh',
+    href: '/checkin-manager',
+    icon: 'notepadText',
     label: 'Checkin'
   },
   {
