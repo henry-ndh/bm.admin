@@ -1,19 +1,13 @@
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import {
-  Tabs,
-  TabsContent,
-  TabsList,
-  TabsTrigger
-} from '@/components/ui/tabs.js';
-import BasePages from '@/components/shared/base-pages.js';
-export default function Students() {
+import { TabsContent } from '@/components/ui/tabs.js';
+export default function AdvisoryPending() {
   return (
-    <TabsContent value="student" className="space-y-4">
+    <TabsContent value="advisorypending" className="space-y-4">
       <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
         <Card>
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
             <CardTitle className="text-sm font-medium">
-              Tổng doanh thu
+              Tổng yêu cầu tư vấn
             </CardTitle>
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -29,7 +23,7 @@ export default function Students() {
             </svg>
           </CardHeader>
           <CardContent>
-            <div className="text-2xl font-bold">23.543.000 VNĐ</div>
+            <div className="text-2xl font-bold">30 tư vấn</div>
             <p className="text-xs text-muted-foreground">
               +20.1 % so với tháng trước
             </p>
@@ -37,7 +31,7 @@ export default function Students() {
         </Card>
         <Card>
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-            <CardTitle className="text-sm font-medium">Tổng học sinh</CardTitle>
+            <CardTitle className="text-sm font-medium">Chưa tư vấn</CardTitle>
             <svg
               xmlns="http://www.w3.org/2000/svg"
               viewBox="0 0 24 24"
@@ -62,9 +56,7 @@ export default function Students() {
         </Card>
         <Card>
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-            <CardTitle className="text-sm font-medium">
-              Số học sinh mới
-            </CardTitle>
+            <CardTitle className="text-sm font-medium">Đã tư vấn</CardTitle>
             <svg
               xmlns="http://www.w3.org/2000/svg"
               viewBox="0 0 24 24"

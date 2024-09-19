@@ -1,12 +1,12 @@
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { TabsContent } from '@/components/ui/tabs.js';
-export default function RevenueTeacher() {
+export default function AdvisoryDone() {
   return (
-    <TabsContent value="teacher" className="space-y-4">
+    <TabsContent value="advisorydone" className="space-y-4">
       <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
         <Card>
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-            <CardTitle className="text-sm font-medium">Giáo viên</CardTitle>
+            <CardTitle className="text-sm font-medium">Tư vấn</CardTitle>
             <svg
               xmlns="http://www.w3.org/2000/svg"
               viewBox="0 0 24 24"

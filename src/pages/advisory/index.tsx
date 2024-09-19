@@ -1,11 +1,9 @@
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import {
-  Tabs,
-  TabsContent,
-  TabsList,
-  TabsTrigger
-} from '@/components/ui/tabs.js';
-import BasePages from '@/components/shared/base-pages.js';
+import { Tabs, TabsList, TabsTrigger } from '@/components/ui/tabs.js';
+import { useGetStudents } from '../checkin-manager/queries/queries';
+import StudentsTable from './advisory-table/index';
+import { useSearchParams } from 'react-router-dom';
+import { DataTableSkeleton } from '@/components/shared/data-table-skeleton';
+import BasePages from '@/components/shared/base-pages';
 export const ListOverViewDashBoard = [
   {
     id: 1,
@@ -14,8 +12,30 @@ export const ListOverViewDashBoard = [
     percent: '+20.1 %'
   }
 ];
-
+import AdvisoryDone from './components/advisory-done';
+import AdvisoryPending from './components/advisory-pending';
 export default function Advisory() {
+  const [searchParams] = useSearchParams();
+  const page = Number(searchParams.get('page') || 1);
+  const pageLimit = Number(searchParams.get('limit') || 10);
+  const country = searchParams.get('search') || null;
+  const offset = (page - 1) * pageLimit;
+  const { data, isLoading } = useGetStudents(offset, pageLimit, country);
+  const users = data?.users;
+  const totalUsers = data?.total_users; //1000
+  const pageCount = Math.ceil(totalUsers / pageLimit);
+
+  if (isLoading) {
+    return (
+      <div className="p-5">
+        <DataTableSkeleton
+          columnCount={10}
+          filterableColumnCount={2}
+          searchableColumnCount={1}
+        />
+      </div>
+    );
+  }
   return (
     <>
       <BasePages
@@ -26,13 +46,23 @@ export default function Advisory() {
           { title: 'Tư vấn', link: '/advisory' }
         ]}
       >
-        <Tabs defaultValue="student" className="space-y-4">
+        <Tabs defaultValue="advisorypending" className="space-y-4">
           <TabsList>
-            <TabsTrigger value="student">Học sinh</TabsTrigger>
-
-            <TabsTrigger value="teacher">Giáo viên</TabsTrigger>
+            <TabsTrigger value="advisorypending">
+              Tư vấn chưa hoàn thành
+            </TabsTrigger>
+            <TabsTrigger value="advisorydone">Đã hoàn thành</TabsTrigger>
           </TabsList>
+          <AdvisoryPending />
+          <AdvisoryDone />
         </Tabs>
+
+        <StudentsTable
+          users={users}
+          page={page}
+          totalUsers={totalUsers}
+          pageCount={pageCount}
+        />
       </BasePages>
     </>
   );

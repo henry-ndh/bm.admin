@@ -38,11 +38,14 @@ export default function CheckInPage() {
     <BasePages
       breadcrumbs={[
         { title: 'Trang chủ', link: '/' },
-        { title: 'Học sinh', link: '/student' }
+        { title: 'Doanh thu', link: '/revenue' }
       ]}
-      pageHead="Quản lý học sinh | Happy Kids"
+      pageHead="Quản lý doanh thu | Happy Kids"
       className="p-4 md:px-8"
     >
+      <h1 className="mb-4 text-2xl font-bold">
+        Doanh thu tháng 9 - Happy Kids
+      </h1>
       <Tabs defaultValue="student" className="space-y-4">
         <TabsList>
           <TabsTrigger value="student">Học sinh</TabsTrigger>

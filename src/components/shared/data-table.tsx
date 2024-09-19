@@ -41,6 +41,7 @@ interface DataTableProps<TData, TValue> {
   pageSizeOptions?: number[];
   pageCount: number;
   showAdd?: boolean;
+  heightTable?: string;
 }
 
 export default function DataTable<TData, TValue>({
@@ -48,7 +49,8 @@ export default function DataTable<TData, TValue>({
   data,
   pageCount,
   pageSizeOptions = [10, 20, 30, 40, 50],
-  showAdd = true
+  showAdd = true,
+  heightTable = '80dvh'
 }: DataTableProps<TData, TValue>) {
   const [searchParams, setSearchParams] = useSearchParams();
   const [searchTerm, setSearchTerm] = useState('');
@@ -128,7 +130,9 @@ export default function DataTable<TData, TValue>({
           )}
         </div>
       </div>
-      <ScrollArea className="h-[calc(80vh-220px)] rounded-md border md:h-[calc(80dvh-80px)]">
+      <ScrollArea
+        className={`h-[calc(${heightTable}-220px)] rounded-md border md:h-[calc(${heightTable}-80px)]`}
+      >
         <Table className="relative">
           <TableHeader>
             {table.getHeaderGroups().map((headerGroup) => (
