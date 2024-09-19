@@ -23,13 +23,19 @@ export const navItems: NavItem[] = [
     title: 'Quản lý điểm danh',
     href: '/checkin-manager',
     icon: 'notepadText',
-    label: 'Checkin'
+    label: 'ManagerCheckin'
   },
   {
     title: 'Tư vấn',
     href: '/advisory',
     icon: 'phone',
     label: 'Advisory'
+  },
+  {
+    title: 'Quản lý doanh thu',
+    href: '/revenue',
+    icon: 'wallet',
+    label: 'Revenue'
   },
 
   {

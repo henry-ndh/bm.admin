@@ -15,6 +15,7 @@ const StudentDetailPage = lazy(
 );
 const CheckInPage = lazy(() => import('@/pages/checkin'));
 const CheckInManagerPage = lazy(() => import('@/pages/checkin-manager'));
+const RevenuePage = lazy(() => import('@/pages/revenue'));
 // ----------------------------------------------------------------------
 
 export default function AppRouter() {
@@ -56,6 +57,10 @@ export default function AppRouter() {
         {
           path: 'checkin-manager',
           element: <CheckInManagerPage />
+        },
+        {
+          path: 'revenue',
+          element: <RevenuePage />
         }
       ]
     }

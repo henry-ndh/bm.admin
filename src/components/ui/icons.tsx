@@ -31,7 +31,8 @@ import {
   X,
   Phone,
   ClipboardCheck,
-  NotepadText
+  NotepadText,
+  Wallet
 } from 'lucide-react';
 
 export type Icon = LucideIcon;
@@ -63,6 +64,7 @@ export const Icons = {
   sun: SunMedium,
   moon: Moon,
   laptop: Laptop,
+
   gitHub: ({ ...props }: LucideProps) => (
     <svg
       aria-hidden="true"
@@ -84,5 +86,6 @@ export const Icons = {
   check: Check,
   phone: Phone,
   clipboardCheck: ClipboardCheck,
-  notepadText: NotepadText
+  notepadText: NotepadText,
+  wallet: Wallet
 };
