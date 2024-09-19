@@ -30,10 +30,10 @@ export default function StudentPage() {
   return (
     <BasePages
       breadcrumbs={[
-        { title: 'Dashboard', link: '/' },
-        { title: 'Students', link: '/student' }
+        { title: 'Trang chủ', link: '/' },
+        { title: 'Học sinh', link: '/student' }
       ]}
-      pageHead="Student Management | App"
+      pageHead="Quản lý học sinh | Happy Kids"
       className="p-4 md:px-8"
     >
       <StudentsTable

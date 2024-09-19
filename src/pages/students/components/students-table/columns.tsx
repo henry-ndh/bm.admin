@@ -25,7 +25,9 @@ export const columns: ColumnDef<Employee>[] = [
   },
   {
     accessorKey: 'first_name',
-    header: 'Tên học sinh'
+    header: 'Tên học sinh',
+    cell: (info) => info.getValue(),
+    enableSorting: true
   },
   {
     accessorKey: 'country',

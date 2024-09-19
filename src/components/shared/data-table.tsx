@@ -1,5 +1,6 @@
 import { Button } from '@/components/ui/button';
 import { ScrollArea, ScrollBar } from '@/components/ui/scroll-area';
+import { useEffect, useState, useMemo } from 'react';
 import {
   Select,
   SelectContent,
@@ -28,7 +29,6 @@ import {
   useReactTable
 } from '@tanstack/react-table';
 import { ChevronLeftIcon, ChevronRightIcon } from 'lucide-react';
-import React from 'react';
 import { useSearchParams } from 'react-router-dom';
 import PopupModal from '@/components/shared/popup-modal';
 import StudentCreateForm from '@/pages/students/components/student-forms/student-create-form';
@@ -47,7 +47,7 @@ export default function DataTable<TData, TValue>({
   pageSizeOptions = [10, 20, 30, 40, 50]
 }: DataTableProps<TData, TValue>) {
   const [searchParams, setSearchParams] = useSearchParams();
-  const [searchTerm, setSearchTerm] = React.useState('');
+  const [searchTerm, setSearchTerm] = useState('');
   // Search params
   const page = searchParams?.get('page') ?? '1';
   const pageAsNumber = Number(page);
@@ -56,14 +56,13 @@ export default function DataTable<TData, TValue>({
   const per_page = searchParams?.get('limit') ?? '10';
   const perPageAsNumber = Number(per_page);
   const fallbackPerPage = isNaN(perPageAsNumber) ? 10 : perPageAsNumber;
-
   // Handle server-side pagination
-  const [{ pageIndex, pageSize }, setPagination] = React.useState({
+  const [{ pageIndex, pageSize }, setPagination] = useState({
     pageIndex: fallbackPage - 1,
     pageSize: fallbackPerPage
   });
 
-  React.useEffect(() => {
+  useEffect(() => {
     // Update the URL with the new page number and limit
     setSearchParams({
       ...Object.fromEntries(searchParams), // Spread the existing search params
@@ -72,7 +71,7 @@ export default function DataTable<TData, TValue>({
     });
   }, [pageIndex, pageSize, searchParams, setSearchParams]);
 
-  const filteredData = React.useMemo(() => {
+  const filteredData = useMemo(() => {
     return data.filter((item: any) => {
       return Object.values(item)
         .join(' ')
@@ -90,11 +89,14 @@ export default function DataTable<TData, TValue>({
     state: {
       pagination: { pageIndex, pageSize }
     },
+
     onPaginationChange: setPagination,
     getPaginationRowModel: getPaginationRowModel(),
     manualPagination: true,
     manualFiltering: true
   });
+
+  console.log(table.getRowModel());
 
   return (
     <>
@@ -159,7 +161,7 @@ export default function DataTable<TData, TValue>({
                   colSpan={columns.length}
                   className="h-24 text-center"
                 >
-                  No results.
+                  Không có kết quả
                 </TableCell>
               </TableRow>
             )}
@@ -171,14 +173,12 @@ export default function DataTable<TData, TValue>({
       <div className="flex flex-col items-center justify-end gap-2 space-x-2 py-4 sm:flex-row">
         <div className="flex w-full items-center justify-between">
           <div className="flex-1 text-sm text-muted-foreground">
-            {table.getFilteredSelectedRowModel().rows.length} of{' '}
-            {table.getFilteredRowModel().rows.length} row(s) selected.
+            {table.getFilteredSelectedRowModel().rows.length} trên{' '}
+            {table.getFilteredRowModel().rows.length} hàng được chọn.
           </div>
           <div className="flex flex-col items-center gap-4 sm:flex-row sm:gap-6 lg:gap-8">
             <div className="flex items-center space-x-2">
-              <p className="whitespace-nowrap text-sm font-medium">
-                Rows per page
-              </p>
+              <p className="whitespace-nowrap text-sm font-medium">Hiển thị</p>
               <Select
                 value={`${table.getState().pagination.pageSize}`}
                 onValueChange={(value: string) => {
@@ -202,8 +202,8 @@ export default function DataTable<TData, TValue>({
           </div>
         </div>
         <div className="flex w-full items-center justify-between gap-2 sm:justify-end">
-          <div className="flex w-[100px] items-center justify-center text-sm font-medium">
-            Page {table.getState().pagination.pageIndex + 1} of{' '}
+          <div className="flex w-[150px] items-center justify-center text-sm font-medium">
+            Trang {table.getState().pagination.pageIndex + 1} trên{' '}
             {table.getPageCount()}
           </div>
           <div className="flex items-center space-x-2">

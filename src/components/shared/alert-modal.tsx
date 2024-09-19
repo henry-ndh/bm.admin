@@ -14,8 +14,8 @@ export const AlertModal = ({
   onClose,
   onConfirm,
   loading,
-  title = 'Are you sure?',
-  description = 'Are you sure you want to continue?'
+  title = 'Xác nhận',
+  description = 'Bạn có chắc muốn tiếp tục chứ?'
 }: TAlertModalProps) => {
   return (
     <Modal
@@ -26,10 +26,10 @@ export const AlertModal = ({
     >
       <div className="flex w-full items-center justify-end space-x-2 pt-6">
         <Button disabled={loading} variant="outline" onClick={onClose}>
-          Cancel
+          Quay lại
         </Button>
         <Button disabled={loading} variant="destructive" onClick={onConfirm}>
-          Continue
+          Tiếp tục
         </Button>
       </div>
     </Modal>
