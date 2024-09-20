@@ -1,10 +1,8 @@
-import { useGetStudents } from './queries/queries';
-import StudentsTable from './checkin-table/index';
+import CheckInStudentTable from './checkin-table/index';
 import { useSearchParams } from 'react-router-dom';
 import { DataTableSkeleton } from '@/components/shared/data-table-skeleton';
 import BasePages from '@/components/shared/base-pages';
 import { useGetStudentPaging } from '@/queries/student.query';
-import { useEffect } from 'react';
 
 export default function CheckInManagerPage() {
   const [searchParams] = useSearchParams();
@@ -12,15 +10,11 @@ export default function CheckInManagerPage() {
   const pageLimit = Number(searchParams.get('limit') || 10);
   const country = searchParams.get('search') || null;
   const offset = (page - 1) * pageLimit;
-  const { data, isLoading } = useGetStudents(offset, pageLimit, country);
+  // const { data, isLoading } = useGetStudents(offset, pageLimit, country);
+  const { data, isLoading } = useGetStudentPaging();
   const users = data?.users;
   const totalUsers = data?.total_users; //1000
   const pageCount = Math.ceil(totalUsers / pageLimit);
-  const { data: student } = useGetStudentPaging();
-
-  useEffect(() => {
-    console.log(student);
-  }, [student]);
 
   if (isLoading) {
     return (
@@ -43,7 +37,7 @@ export default function CheckInManagerPage() {
       pageHead="Quản lý điểm danh | Happy Kids"
       className="p-4 md:px-8"
     >
-      <StudentsTable
+      <CheckInStudentTable
         users={users}
         page={page}
         totalUsers={totalUsers}

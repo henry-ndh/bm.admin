@@ -1,20 +1,18 @@
 import { AlertModal } from '@/components/shared/alert-modal';
 import { Badge } from '@/components/ui/badge';
-import { Employee } from '@/constants/data';
+import { StudentCheckIn } from '@/constants/data';
 import { useRouter } from '@/routes/hooks';
 import { useState } from 'react';
 
 const STATUS = ['Đã điểm danh', 'Chưa điểm danh'];
 
 interface CellActionStatusProps {
-  data: Employee;
-  isActive: boolean;
-  status: boolean;
+  data: StudentCheckIn;
+  status: number;
 }
 
 export const CellActionStatus: React.FC<CellActionStatusProps> = ({
   data,
-  isActive,
   status
 }) => {
   const [loading] = useState(false);
@@ -34,9 +32,9 @@ export const CellActionStatus: React.FC<CellActionStatusProps> = ({
 
       <div className="flex gap-4">
         <Badge
-          className={`w-[150px] p-2 ${status ? `bg-green-500` : 'bg-red-400'} flex justify-center focus:bg-green-500`}
+          className={`w-[150px] p-2 ${status == 1 ? `bg-green-500` : 'bg-red-400'} flex justify-center focus:bg-green-500`}
         >
-          {STATUS[status ? 0 : 1]} {/* Sử dụng boolean để chọn chỉ mục */}
+          {STATUS[status - 1]}
         </Badge>
       </div>
     </>

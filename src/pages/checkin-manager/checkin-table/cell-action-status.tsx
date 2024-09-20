@@ -19,7 +19,6 @@ export const CellActionStatus: React.FC<CellActionStatusProps> = ({
 }) => {
   const [loading] = useState(false);
   const [open, setOpen] = useState(false);
-  const router = useRouter();
 
   const onConfirm = async () => {};
 

@@ -1,9 +1,9 @@
 import { Checkbox } from '@/components/ui/checkbox';
-import { Employee } from '@/constants/data';
+import { Student } from '@/constants/data';
 import { ColumnDef } from '@tanstack/react-table';
 import { CellAction } from './cell-action';
-
-export const columns: ColumnDef<Employee>[] = [
+import helper from '@/helpers/index';
+export const columns: ColumnDef<Student>[] = [
   {
     id: 'select',
     header: ({ table }) => (
@@ -24,34 +24,30 @@ export const columns: ColumnDef<Employee>[] = [
     enableHiding: false
   },
   {
-    accessorKey: 'first_name',
+    accessorKey: 'name',
     header: 'Tên học sinh',
     cell: (info) => info.getValue(),
     enableSorting: true
   },
   {
-    accessorKey: 'country',
+    accessorKey: 'address',
     header: 'Địa chỉ'
   },
   {
-    accessorKey: 'parent_number',
-    header: 'Số điện thoại phụ huynh'
+    accessorKey: 'gender',
+    header: 'Giới tính',
+    cell: (info) => {
+      return info.getValue() ? 'Nam' : 'Nữ';
+    }
   },
   {
-    accessorKey: 'parent_name',
+    accessorKey: 'parentName',
     header: 'Tên phụ huynh'
   },
   {
-    accessorKey: 'gender',
-    header: 'Giới tính'
-  },
-  {
-    accessorKey: 'birthday',
-    header: 'Ngày sinh'
-  },
-  {
-    accessorKey: 'day_join',
-    header: 'Ngày tham gia'
+    accessorKey: 'joinAt',
+    header: 'Ngày tham gia',
+    cell: (info) => helper.convertToDate(info.getValue())
   },
   {
     id: 'actions',

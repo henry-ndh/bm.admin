@@ -174,3 +174,30 @@ export type Employee = {
   job: string;
   profile_picture?: string | null; // Profile picture can be a string (URL) or null (if no picture)
 };
+
+export type Student = {
+  id: number;
+  name: string;
+  address: string;
+  gender: boolean;
+  classId: number;
+  schoolId: number;
+  dayOfBirth: string;
+  joinAt: string;
+  parentName: string;
+  parentPhone: string;
+  phone: string;
+  fee: number;
+  endAt: string;
+  isActive: boolean;
+};
+
+export type StudentCheckIn = {
+  id: number;
+  name: string;
+  classId: number;
+  className: string;
+  createdDate: string;
+  status: number;
+  userId: number;
+};

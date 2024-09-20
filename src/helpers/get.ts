@@ -391,8 +391,6 @@ export default class GET {
       T = 10,
       R = 15,
       O = 21;
-    s = J(s);
-    C = e(s);
     Y = 1732584193;
     X = 4023233417;
     W = 2562383102;

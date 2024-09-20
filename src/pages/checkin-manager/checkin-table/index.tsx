@@ -7,7 +7,7 @@ type TStudentsTableProps = {
   pageCount: number;
 };
 
-export default function StudentsTable({
+export default function CheckInStudentTable({
   users,
   pageCount
 }: TStudentsTableProps) {

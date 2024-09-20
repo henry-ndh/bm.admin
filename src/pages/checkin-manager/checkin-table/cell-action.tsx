@@ -1,5 +1,5 @@
 import { Button } from '@/components/ui/button';
-import { Employee } from '@/constants/data';
+import { Student } from '@/constants/data';
 import { useState } from 'react';
 import {
   Dialog,
@@ -11,7 +11,7 @@ import {
   DialogTrigger
 } from '@/components/ui/dialog';
 interface CellActionProps {
-  data: Employee;
+  data: Student;
   isActive: boolean;
 }
 
@@ -38,7 +38,7 @@ export const CellAction: React.FC<CellActionProps> = ({ data, isActive }) => {
               </DialogDescription>
             </DialogHeader>
             <p className="flex text-right">
-              Tên học sinh: <span>{data.first_name}</span>
+              Tên học sinh: <span>{data.name}</span>
             </p>
             <p className="flex text-right">Danh sách ngày nghỉ</p>
             <ul>

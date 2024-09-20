@@ -1,8 +1,8 @@
-import { useGetStudents } from './queries/queries';
 import StudentsTable from './components/students-table';
 import { useSearchParams } from 'react-router-dom';
 import { DataTableSkeleton } from '@/components/shared/data-table-skeleton';
 import BasePages from '@/components/shared/base-pages';
+import { useGetStudentPaging } from '@/queries/student.query';
 
 export default function StudentPage() {
   const [searchParams] = useSearchParams();
@@ -10,11 +10,11 @@ export default function StudentPage() {
   const pageLimit = Number(searchParams.get('limit') || 10);
   const country = searchParams.get('search') || null;
   const offset = (page - 1) * pageLimit;
-  const { data, isLoading } = useGetStudents(offset, pageLimit, country);
-  const users = data?.users;
+  const { data, isLoading } = useGetStudentPaging();
+  const users = data?.data;
   const totalUsers = data?.total_users; //1000
   const pageCount = Math.ceil(totalUsers / pageLimit);
-
+  console.log(data);
   if (isLoading) {
     return (
       <div className="p-5">

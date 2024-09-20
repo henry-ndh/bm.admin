@@ -3,15 +3,20 @@ import StudentsTable from './checkin-table/index';
 import { useSearchParams } from 'react-router-dom';
 import { DataTableSkeleton } from '@/components/shared/data-table-skeleton';
 import BasePages from '@/components/shared/base-pages';
-
+import {
+  useInitCheckInStudent,
+  useGetListCheckInStudent
+} from '@/queries/student.query';
 export default function CheckInPage() {
   const [searchParams] = useSearchParams();
   const page = Number(searchParams.get('page') || 1);
   const pageLimit = Number(searchParams.get('limit') || 10);
   const country = searchParams.get('search') || null;
   const offset = (page - 1) * pageLimit;
-  const { data, isLoading } = useGetStudents(offset, pageLimit, country);
-  const users = data?.users;
+  const { data, isLoading } = useGetListCheckInStudent();
+  const { data: initData } = useInitCheckInStudent();
+
+  const users = data?.data;
   const totalUsers = data?.total_users; //1000
   const pageCount = Math.ceil(totalUsers / pageLimit);
 

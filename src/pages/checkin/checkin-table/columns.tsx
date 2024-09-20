@@ -1,9 +1,10 @@
 import { Checkbox } from '@/components/ui/checkbox';
-import { Employee } from '@/constants/data';
+import { StudentCheckIn } from '@/constants/data';
 import { ColumnDef } from '@tanstack/react-table';
-import { CellAction } from './cell-action';
 import { CellActionStatus } from './cell-action-status';
-export const columns: ColumnDef<Employee>[] = [
+import { useCheckInStudent } from '@/queries/student.query';
+
+export const columns: ColumnDef<StudentCheckIn>[] = [
   {
     id: 'select',
     header: ({ table }) => (
@@ -13,21 +14,34 @@ export const columns: ColumnDef<Employee>[] = [
         aria-label="Select all"
       />
     ),
-    cell: ({ row }) => (
-      <Checkbox
-        checked={row.getIsSelected()}
-        onCheckedChange={(value) => {
-          row.toggleSelected(!!value);
-          console.log(row.original);
-        }}
-        aria-label="Select row"
-      />
-    ),
+    cell: ({ row }) => {
+      const { mutateAsync } = useCheckInStudent();
+      const isChecked = row.original.status === 1;
+      return (
+        <Checkbox
+          checked={isChecked}
+          onCheckedChange={async (value) => {
+            row.toggleSelected(!!value);
+            const student = row.original;
+            const model = {
+              id: student.id,
+              userId: student.userId,
+              status: isChecked ? 2 : 1,
+              classId: student.classId
+            };
+            row.original.status = isChecked ? 2 : 1;
+            await mutateAsync(model);
+          }}
+          aria-label={`Select row ${row.original.name}`}
+        />
+      );
+    },
+
     enableSorting: false,
     enableHiding: false
   },
   {
-    accessorKey: 'first_name',
+    accessorKey: 'name',
     header: 'Tên học sinh',
     enableSorting: true
   },
@@ -35,11 +49,7 @@ export const columns: ColumnDef<Employee>[] = [
     accessorKey: 'Status',
     header: 'Trạng thái',
     cell: ({ row }) => (
-      <CellActionStatus
-        data={row.original}
-        isActive={row.getIsSelected()}
-        status={row.getIsSelected()}
-      />
+      <CellActionStatus data={row.original} status={row.original.status} />
     ),
     enableSorting: true,
     sortingFn: (rowA, rowB) => {
@@ -51,44 +61,4 @@ export const columns: ColumnDef<Employee>[] = [
       return statusA > statusB ? 1 : -1;
     }
   }
-  //   {
-  //     accessorKey: 'Note',
-  //     header: 'Ghi chú',
-  //     id: 'actions12',
-  //     cell: ({ row }) => (
-  //       <CellAction data={row.original} isActive={row.getIsSelected()} />
-  //     )
-  //   }
 ];
-
-// interface User {
-//     id: string;
-//     first_name: string;
-//     address: string;
-//     checkedIn: boolean; // Add this property
-//   }
-
-//   async function handleCheckIn(userId: string, isChecked: boolean) {
-//     try {
-//       await useCheckIn(userId, isChecked); // Call your check-in API
-//     } catch (error) {
-//       console.error('Error checking in user:', error);
-//     }
-//   }
-
-//   async function handleCheckInAll(isChecked: boolean) {
-//     try {
-//       // Call your check-in API for all users
-//       // You might need to iterate over all users and call the API for each user
-//     } catch (error) {
-//       console.error('Error checking in all users:', error);
-//     }
-//   }
-
-//   async function refreshUserList() {
-//     try {
-//       await useGetUsers(); // Refresh the user list
-//     } catch (error) {
-//       console.error('Error refreshing user list:', error);
-//     }
-//   }
