@@ -9,11 +9,16 @@ import { BrowserRouter } from 'react-router-dom';
 import ThemeProvider from './theme-provider';
 import { SidebarProvider } from '@/hooks/use-sidebar';
 
-export const queryClient = new QueryClient();
+export const queryClient = new QueryClient({
+  defaultOptions: {
+    queries: {
+      retry: 2
+    }
+  }
+});
 
 const ErrorFallback = ({ error }: FallbackProps) => {
   const router = useRouter();
-  console.log('error', error);
   return (
     <div
       className="flex h-screen w-screen flex-col items-center  justify-center text-red-500"

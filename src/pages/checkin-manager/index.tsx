@@ -3,6 +3,8 @@ import StudentsTable from './checkin-table/index';
 import { useSearchParams } from 'react-router-dom';
 import { DataTableSkeleton } from '@/components/shared/data-table-skeleton';
 import BasePages from '@/components/shared/base-pages';
+import { useGetStudentPaging } from '@/queries/student.query';
+import { useEffect } from 'react';
 
 export default function CheckInManagerPage() {
   const [searchParams] = useSearchParams();
@@ -14,6 +16,11 @@ export default function CheckInManagerPage() {
   const users = data?.users;
   const totalUsers = data?.total_users; //1000
   const pageCount = Math.ceil(totalUsers / pageLimit);
+  const { data: student } = useGetStudentPaging();
+
+  useEffect(() => {
+    console.log(student);
+  }, [student]);
 
   if (isLoading) {
     return (

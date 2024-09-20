@@ -106,8 +106,6 @@ export default function DataTable<TData, TValue>({
     onSortingChange: setSorting
   });
 
-  console.log(table.getRowModel());
-
   return (
     <>
       <div className="flex items-center justify-between gap-2 py-4">

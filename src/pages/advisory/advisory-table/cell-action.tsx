@@ -1,6 +1,5 @@
 import { Button } from '@/components/ui/button';
 import { Employee } from '@/constants/data';
-import { useState } from 'react';
 
 interface CellActionProps {
   data: Employee;

@@ -11,21 +11,8 @@ interface CellActionProps {
 }
 
 export const CellAction: React.FC<CellActionProps> = ({ data, isActive }) => {
-  const [loading] = useState(false);
-  const [open, setOpen] = useState(false);
-  const router = useRouter();
-
-  const onConfirm = async () => {};
-
   return (
     <>
-      <AlertModal
-        isOpen={open}
-        onClose={() => setOpen(false)}
-        onConfirm={onConfirm}
-        loading={loading}
-      />
-
       <div className="flex gap-4">
         <Input disabled={isActive} className=" w-[120px] "></Input>
         <Button disabled={isActive} className="text bg-green-500">

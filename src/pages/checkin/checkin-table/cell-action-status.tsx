@@ -34,7 +34,7 @@ export const CellActionStatus: React.FC<CellActionStatusProps> = ({
 
       <div className="flex gap-4">
         <Badge
-          className={`w-[150px] p-2 ${status ? `bg-green-500` : 'bg-red-400'} flex justify-center`}
+          className={`w-[150px] p-2 ${status ? `bg-green-500` : 'bg-red-400'} flex justify-center focus:bg-green-500`}
         >
           {STATUS[status ? 0 : 1]} {/* Sử dụng boolean để chọn chỉ mục */}
         </Badge>

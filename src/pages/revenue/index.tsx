@@ -3,14 +3,10 @@ import StudentsTable from './checkin-table/index';
 import { useSearchParams } from 'react-router-dom';
 import { DataTableSkeleton } from '@/components/shared/data-table-skeleton';
 import BasePages from '@/components/shared/base-pages';
-import {
-  Tabs,
-  TabsContent,
-  TabsList,
-  TabsTrigger
-} from '@/components/ui/tabs.js';
+import { Tabs, TabsList, TabsTrigger } from '@/components/ui/tabs.js';
 import Student from './components/students/index';
 import Teacher from './components/teachers/index';
+
 export default function CheckInPage() {
   const [searchParams] = useSearchParams();
   const page = Number(searchParams.get('page') || 1);

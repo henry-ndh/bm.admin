@@ -13,7 +13,6 @@ const InterestChannel = ({ title }: { title: string }) => {
   const offset = (currentPage - 1) * pageLimit;
   const { data } = useGetStudents(offset, pageLimit, country);
   const users = data?.users;
-  console.log('users', users);
   const totalUsers = data?.total_users; //1000
 
   return (

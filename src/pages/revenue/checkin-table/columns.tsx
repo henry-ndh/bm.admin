@@ -1,8 +1,6 @@
 import { Checkbox } from '@/components/ui/checkbox';
 import { Employee } from '@/constants/data';
 import { ColumnDef } from '@tanstack/react-table';
-import { CellAction } from './cell-action';
-import { CellActionStatus } from './cell-action-status';
 export const columns: ColumnDef<Employee>[] = [
   {
     id: 'select',
@@ -18,7 +16,6 @@ export const columns: ColumnDef<Employee>[] = [
         checked={row.getIsSelected()}
         onCheckedChange={(value) => {
           row.toggleSelected(!!value);
-          console.log(row.original);
         }}
         aria-label="Select row"
       />

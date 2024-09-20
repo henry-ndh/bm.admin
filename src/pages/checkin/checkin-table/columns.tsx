@@ -50,15 +50,15 @@ export const columns: ColumnDef<Employee>[] = [
       }
       return statusA > statusB ? 1 : -1;
     }
-  },
-  {
-    accessorKey: 'Note',
-    header: 'Ghi chú',
-    id: 'actions12',
-    cell: ({ row }) => (
-      <CellAction data={row.original} isActive={row.getIsSelected()} />
-    )
   }
+  //   {
+  //     accessorKey: 'Note',
+  //     header: 'Ghi chú',
+  //     id: 'actions12',
+  //     cell: ({ row }) => (
+  //       <CellAction data={row.original} isActive={row.getIsSelected()} />
+  //     )
+  //   }
 ];
 
 // interface User {

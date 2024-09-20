@@ -5,10 +5,12 @@ import { Card, CardContent, CardHeader } from '@/components/ui/card';
 import { useRouter } from '@/routes/hooks';
 import { ChevronLeftIcon, ShareIcon } from 'lucide-react';
 import InterestChannel from './components/interest-channel';
+import { useGetUserDetail } from '@/queries/user';
 
 export default function StudentDetailPage() {
   const router = useRouter();
-
+  const { data } = useGetUserDetail(12);
+  console.log(data);
   return (
     <div className="h-full overflow-y-auto p-10">
       <div className="flex items-center justify-between">

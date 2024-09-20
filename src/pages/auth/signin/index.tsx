@@ -35,41 +35,31 @@ export default function SignInPage() {
         <div className="relative z-20 mt-auto">
           <blockquote className="space-y-2">
             <p className="text-lg">
-              &ldquo;This library has saved me countless hours of work and
-              helped me deliver stunning designs to my clients faster than ever
-              before.&rdquo;
+              &ldquo;Happy Kids - Mầm non dành cho trẻ.&rdquo;
             </p>
-            <footer className="text-sm">Sofia Davis</footer>
+            <footer className="text-sm">Nguyễn Đức Tuấn</footer>
           </blockquote>
         </div>
       </div>
       <div className="flex h-full items-center p-4 lg:p-8">
         <div className="mx-auto flex w-full flex-col justify-center space-y-6 sm:w-[350px]">
           <div className="flex flex-col space-y-2 text-center">
-            <h1 className="text-2xl font-semibold tracking-tight">
-              Create an account
-            </h1>
+            <h1 className="text-2xl font-semibold tracking-tight">Đăng nhập</h1>
             <p className="text-sm text-muted-foreground">
-              Enter your email below to create your account
+              Nhập tài khoản của bạn để tiếp tục
             </p>
           </div>
           <UserAuthForm />
           <p className="px-8 text-center text-sm text-muted-foreground">
-            By clicking continue, you agree to our{' '}
-            <Link
-              to="/terms"
-              className="underline underline-offset-4 hover:text-primary"
-            >
-              Terms of Service
-            </Link>{' '}
-            and{' '}
-            <Link
-              to="/privacy"
-              className="underline underline-offset-4 hover:text-primary"
-            >
-              Privacy Policy
-            </Link>
-            .
+            Bằng cách tiếp tục, bạn đồng ý với{' '}
+            <a className="underline underline-offset-4 hover:text-primary">
+              điều khoản dịch vụ
+            </a>{' '}
+            và{' '}
+            <a className="underline underline-offset-4 hover:text-primary">
+              chính sách bảo mật
+            </a>{' '}
+            của Happy Kids .
           </p>
         </div>
       </div>
