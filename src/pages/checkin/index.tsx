@@ -16,7 +16,9 @@ export default function CheckInPage() {
   const { data, isLoading } = useGetListCheckInStudent();
   const { data: initData } = useInitCheckInStudent();
 
-  const users = data?.data;
+  console.log('data', data);
+
+  const users = data;
   const totalUsers = data?.total_users; //1000
   const pageCount = Math.ceil(totalUsers / pageLimit);
 

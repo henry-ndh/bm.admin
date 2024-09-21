@@ -12,7 +12,7 @@ export default function CheckInManagerPage() {
   const offset = (page - 1) * pageLimit;
   // const { data, isLoading } = useGetStudents(offset, pageLimit, country);
   const { data, isLoading } = useGetStudentPaging();
-  const users = data?.users;
+  const users = data;
   const totalUsers = data?.total_users; //1000
   const pageCount = Math.ceil(totalUsers / pageLimit);
 

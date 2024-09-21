@@ -1,8 +1,9 @@
 import { Checkbox } from '@/components/ui/checkbox';
-import { Employee } from '@/constants/data';
+import { Advisory } from '@/constants/data';
 import { ColumnDef } from '@tanstack/react-table';
 import { CellAction } from './cell-action';
-export const columns: ColumnDef<Employee>[] = [
+import helper from '@/helpers/index';
+export const columns: ColumnDef<Advisory>[] = [
   {
     id: 'select',
     header: ({ table }) => (
@@ -25,25 +26,22 @@ export const columns: ColumnDef<Employee>[] = [
     enableHiding: false
   },
   {
-    accessorKey: 'first_name',
-    header: 'Tên học sinh',
+    accessorKey: 'name',
+    header: 'Tên phụ huynh',
     enableSorting: true
   },
   {
-    accessorKey: 'Day_on',
-    header: 'Ngày đặt tư vấn',
-    enableSorting: true,
-    sortingFn: (rowA, rowB) => {
-      const statusA = rowA.getIsSelected();
-      const statusB = rowB.getIsSelected();
-      if (statusA === statusB) {
-        return 0;
-      }
-      return statusA > statusB ? 1 : -1;
-    }
+    accessorKey: 'phone',
+    header: 'Số điện thoại'
   },
   {
-    accessorKey: 'day_register',
+    accessorKey: 'createdDate',
+    header: 'Ngày đặt tư vấn',
+    enableSorting: true,
+    cell: (date) => helper.convertToDate(date.getValue())
+  },
+  {
+    accessorKey: 'timeAdvisory',
     header: 'Thời gian muốn nhận tư vấn',
     id: 'actions12'
   },

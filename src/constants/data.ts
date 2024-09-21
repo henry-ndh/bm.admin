@@ -201,3 +201,14 @@ export type StudentCheckIn = {
   status: number;
   userId: number;
 };
+
+export type Advisory = {
+  id: number;
+  name: string;
+  phone: string;
+  message: string;
+  isDone: boolean;
+  timeAdvisory: string;
+  modifyDate: string;
+  createdDate: string;
+};

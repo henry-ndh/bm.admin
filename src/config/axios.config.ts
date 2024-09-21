@@ -2,40 +2,62 @@ import axios from 'axios';
 import helpers from '../helpers';
 
 const baseURL = 'https://localhost:7093/';
-axios.defaults.baseURL = baseURL;
-axios.interceptors.request.use(
-  async (config) => {
-    try {
-      const token = await helpers.cookie_get('AT');
-      if (token) {
-        config.headers['Authorization'] = `Bearer ${token}`;
-      }
-      return config;
-    } catch (error) {
-      console.error('Error in request interceptor:', error);
-      return Promise.reject(error);
+
+const onRequestSuccess = (config: any) => {
+  config.headers['Authorization'] = `Bearer ${helpers.cookie_get('token')}`;
+  return config;
+};
+const onRequestError = (error: any) => {
+  return Promise.reject(error);
+};
+const onResponseSuccess = (response: any) => {
+  return response.data;
+};
+const onResponseError = (error: any) => {
+  if (error.response) {
+    if (error.response.status === 401) {
+      window.location.href = '/login';
     }
-  },
-  (error) => {
-    return Promise.reject(error);
+    return Promise.reject(error.response.data);
   }
-);
+  return Promise.reject(error);
+};
+axios.interceptors.request.use(onRequestSuccess, onRequestError);
+axios.interceptors.response.use(onResponseSuccess, onResponseError);
+axios.defaults.baseURL = baseURL;
+
 var BaseRequest = {
   Get: async (url: string) => {
-    const response = await axios.get(url);
-    return response.data;
+    try {
+      const response = await axios.get(url);
+      return response.data;
+    } catch (err) {
+      console.log('err', err);
+    }
   },
   Post: async (url: string, data: any) => {
-    const response = await axios.post(url, data);
-    return response.data;
+    try {
+      const response = await axios.post(url, data);
+      return response.data;
+    } catch (err) {
+      console.log('err', err);
+    }
   },
   Put: async (url: string, data: any) => {
-    const response = await axios.put(url, data);
-    return response.data;
+    try {
+      const response = await axios.put(url, data);
+      return response.data;
+    } catch (err) {
+      console.log('err', err);
+    }
   },
   Delete: async (url: string) => {
-    const response = await axios.delete(url);
-    return response.data;
+    try {
+      const response = await axios.delete(url);
+      return response.data;
+    } catch (err) {
+      console.log('err', err);
+    }
   }
 };
 

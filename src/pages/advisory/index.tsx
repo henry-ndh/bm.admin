@@ -1,9 +1,10 @@
 import { Tabs, TabsList, TabsTrigger } from '@/components/ui/tabs.js';
 import { useGetStudents } from '../checkin-manager/queries/queries';
-import StudentsTable from './advisory-table/index';
+import AdvisoryTable from './advisory-table/index';
 import { useSearchParams } from 'react-router-dom';
 import { DataTableSkeleton } from '@/components/shared/data-table-skeleton';
 import BasePages from '@/components/shared/base-pages';
+import { useGetAdvisorPaging } from '@/queries/advisor.query';
 export const ListOverViewDashBoard = [
   {
     id: 1,
@@ -20,8 +21,8 @@ export default function Advisory() {
   const pageLimit = Number(searchParams.get('limit') || 10);
   const country = searchParams.get('search') || null;
   const offset = (page - 1) * pageLimit;
-  const { data, isLoading } = useGetStudents(offset, pageLimit, country);
-  const users = data?.users;
+  const { data, isLoading } = useGetAdvisorPaging();
+  const users = data?.listObjects;
   const totalUsers = data?.total_users; //1000
   const pageCount = Math.ceil(totalUsers / pageLimit);
 
@@ -57,7 +58,7 @@ export default function Advisory() {
           <AdvisoryDone />
         </Tabs>
 
-        <StudentsTable
+        <AdvisoryTable
           users={users}
           page={page}
           totalUsers={totalUsers}

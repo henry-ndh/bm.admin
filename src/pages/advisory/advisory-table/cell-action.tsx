@@ -1,8 +1,8 @@
 import { Button } from '@/components/ui/button';
-import { Employee } from '@/constants/data';
+import { Advisory } from '@/constants/data';
 
 interface CellActionProps {
-  data: Employee;
+  data: Advisory;
   isActive: boolean;
 }
 

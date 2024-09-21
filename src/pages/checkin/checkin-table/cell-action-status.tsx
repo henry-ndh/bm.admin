@@ -1,7 +1,6 @@
 import { AlertModal } from '@/components/shared/alert-modal';
 import { Badge } from '@/components/ui/badge';
 import { StudentCheckIn } from '@/constants/data';
-import { useRouter } from '@/routes/hooks';
 import { useState } from 'react';
 
 const STATUS = ['Đã điểm danh', 'Chưa điểm danh'];
@@ -17,7 +16,6 @@ export const CellActionStatus: React.FC<CellActionStatusProps> = ({
 }) => {
   const [loading] = useState(false);
   const [open, setOpen] = useState(false);
-  const router = useRouter();
 
   const onConfirm = async () => {};
 
@@ -32,7 +30,7 @@ export const CellActionStatus: React.FC<CellActionStatusProps> = ({
 
       <div className="flex gap-4">
         <Badge
-          className={`w-[150px] p-2 ${status == 1 ? `bg-green-500` : 'bg-red-400'} flex justify-center focus:bg-green-500`}
+          className={`w-[130px] ${status == 1 ? `bg-green-500` : 'bg-red-400'} flex justify-center focus:bg-green-500`}
         >
           {STATUS[status - 1]}
         </Badge>
