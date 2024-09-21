@@ -1,4 +1,4 @@
-import { useGetStudents } from './queries/queries';
+import { useEffect, useState } from 'react';
 import StudentsTable from './checkin-table/index';
 import { useSearchParams } from 'react-router-dom';
 import { DataTableSkeleton } from '@/components/shared/data-table-skeleton';
@@ -7,32 +7,31 @@ import {
   useInitCheckInStudent,
   useGetListCheckInStudent
 } from '@/queries/student.query';
+import ComboBoxFilter from '@/components/shared/combo-box-filter';
+
 export default function CheckInPage() {
   const [searchParams] = useSearchParams();
   const page = Number(searchParams.get('page') || 1);
   const pageLimit = Number(searchParams.get('limit') || 10);
   const country = searchParams.get('search') || null;
   const offset = (page - 1) * pageLimit;
-  const { data, isLoading } = useGetListCheckInStudent();
+  const {
+    mutateAsync: getListCheckIn,
+    data,
+    isPending
+  } = useGetListCheckInStudent();
   const { data: initData } = useInitCheckInStudent();
-
-  console.log('data', data);
-
   const users = data;
-  const totalUsers = data?.total_users; //1000
+  const totalUsers = 12;
   const pageCount = Math.ceil(totalUsers / pageLimit);
+  const [isFilter, setIsFilter] = useState(false);
 
-  if (isLoading) {
-    return (
-      <div className="p-5">
-        <DataTableSkeleton
-          columnCount={10}
-          filterableColumnCount={2}
-          searchableColumnCount={1}
-        />
-      </div>
-    );
-  }
+  useEffect(() => {
+    if (isFilter) {
+      getListCheckIn();
+      setIsFilter(false);
+    }
+  }, [isFilter]);
 
   return (
     <BasePages
@@ -43,6 +42,11 @@ export default function CheckInPage() {
       pageHead="Quản lý điểm danh | Happy Kids"
       className="p-4 md:px-8"
     >
+      <ComboBoxFilter
+        onFilter={(value) => {
+          setIsFilter(true);
+        }}
+      />
       <StudentsTable
         users={users}
         page={page}

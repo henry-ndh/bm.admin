@@ -60,9 +60,9 @@ export function useInitCheckInStudent() {
 }
 
 export function useGetListCheckInStudent() {
-  return useQuery({
-    queryKey: ['get_list_checkin_student'],
-    queryFn: async () => {
+  return useMutation({
+    mutationKey: ['get_list_checkin_student'],
+    mutationFn: async () => {
       return BaseRequest.Post(
         `/${SUB_URL}/get-list-check-in-student-by-paging?classId=2`,
         PagingModelToday

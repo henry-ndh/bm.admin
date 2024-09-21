@@ -14,7 +14,7 @@ export default function StudentPage() {
   const users = data;
   const totalUsers = data?.total_users; //1000
   const pageCount = Math.ceil(totalUsers / pageLimit);
-  console.log(data);
+
   if (isLoading) {
     return (
       <div className="p-5">
