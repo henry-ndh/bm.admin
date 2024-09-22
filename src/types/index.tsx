@@ -10,6 +10,21 @@ export interface NavItem {
   description?: string;
 }
 
+export interface SchoolType {
+  id: number;
+  name: string;
+  address: string;
+  email: string;
+  phone: string;
+  description: string;
+  headMasterId: number;
+  createdDate: string;
+  createdBy: string;
+  isActive: boolean;
+  modifyDate: string | null;
+  modifyBy: string | null;
+}
+
 export interface NavItemWithChildren extends NavItem {
   items: NavItemWithChildren[];
 }

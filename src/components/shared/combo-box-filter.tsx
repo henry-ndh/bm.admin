@@ -15,15 +15,19 @@ import {
   PopoverContent,
   PopoverTrigger
 } from '@/components/ui/popover';
-
+import { useGetListSchool } from '@/queries/school.query';
+import { useDispatch, useSelector } from 'react-redux';
+import { RootState } from '@/redux/store';
+import { Input } from '@/components/ui/input';
+import { addSchool } from '@/redux/school/slice';
 interface ComboBoxFilterProps {
   onFilter: (value) => void;
 }
 
-const frameworks = [
-  { value: 'next.js', label: 'Next.js' },
-  { value: 'sveltekit', label: 'SvelteKit' }
-];
+// const frameworks = [
+//   { value: 'next.js', label: 'Next.js' },
+//   { value: 'sveltekit', label: 'SvelteKit' }
+// ];
 
 function FrameworkPopover({
   open,
@@ -33,51 +37,60 @@ function FrameworkPopover({
   placeholder,
   disabled
 }) {
+  const schools = useSelector((state: RootState) => state.school.listSchool);
+  const frameworks = schools.map((school) => ({
+    value: String(school.id),
+    label: school.name
+  }));
   return (
-    <Popover open={open} onOpenChange={setOpen}>
-      <PopoverTrigger asChild>
-        <Button
-          variant="outline"
-          role="combobox"
-          aria-expanded={open}
-          className="w-[200px] justify-between"
-          disabled={disabled}
-        >
-          {value
-            ? frameworks.find((fw) => fw.value === value)?.label
-            : placeholder}
-          <ChevronsUpDown className="ml-2 h-4 w-4 shrink-0 opacity-50" />
-        </Button>
-      </PopoverTrigger>
-      <PopoverContent className="w-[200px] p-0">
-        <Command>
-          <CommandInput placeholder="Tìm kiếm..." />
-          <CommandList>
-            <CommandEmpty>Không tìm thấy dữ liệu</CommandEmpty>
-            <CommandGroup>
-              {frameworks.map((framework) => (
-                <CommandItem
-                  key={framework.value}
-                  value={framework.value}
-                  onSelect={() => {
-                    setValue(framework.value === value ? '' : framework.value);
-                    setOpen(false);
-                  }}
-                >
-                  <Check
-                    className={cn(
-                      'mr-2 h-4 w-4',
-                      value === framework.value ? 'opacity-100' : 'opacity-0'
-                    )}
-                  />
-                  {framework.label}
-                </CommandItem>
-              ))}
-            </CommandGroup>
-          </CommandList>
-        </Command>
-      </PopoverContent>
-    </Popover>
+    <>
+      <Popover open={open} onOpenChange={setOpen}>
+        <PopoverTrigger asChild>
+          <Button
+            variant="outline"
+            role="combobox"
+            aria-expanded={open}
+            className="w-[200px] justify-between"
+            disabled={disabled}
+          >
+            {value
+              ? frameworks.find((fw) => fw.value === value)?.label
+              : placeholder}
+            <ChevronsUpDown className="ml-2 h-4 w-4 shrink-0 opacity-50" />
+          </Button>
+        </PopoverTrigger>
+        <PopoverContent className="w-[200px] p-0">
+          <Command>
+            <CommandInput placeholder="Tìm kiếm..." />
+            <CommandList>
+              <CommandEmpty>Không tìm thấy dữ liệu</CommandEmpty>
+              <CommandGroup>
+                {frameworks.map((framework) => (
+                  <CommandItem
+                    key={framework.value}
+                    value={framework.value}
+                    onSelect={() => {
+                      setValue(
+                        framework.value === value ? '' : framework.value
+                      );
+                      setOpen(false);
+                    }}
+                  >
+                    <Check
+                      className={cn(
+                        'mr-2 h-4 w-4',
+                        value === framework.value ? 'opacity-100' : 'opacity-0'
+                      )}
+                    />
+                    {framework.label}
+                  </CommandItem>
+                ))}
+              </CommandGroup>
+            </CommandList>
+          </Command>
+        </PopoverContent>
+      </Popover>
+    </>
   );
 }
 
@@ -88,6 +101,22 @@ export default function ComboBoxFilter({ onFilter }: ComboBoxFilterProps) {
     open1: false,
     open2: false
   });
+  const [modelAddSchool, setModelAddSchool] = React.useState({
+    id: 5,
+    name: 'Happy Kids Cơ Sở 1',
+    address: 'Buôn Trấp Krông Ana',
+    email: 'happykidscs1@gmail.com',
+    phone: '0941720502',
+    description: 'HappyKids Cơ Sở 1',
+    headMasterId: 1,
+    createdDate: '2024-09-21T01:26:39.2812272',
+    createdBy: 'admin',
+    isActive: true,
+    modifyDate: null,
+    modifyBy: null
+  });
+  const dispatch = useDispatch();
+  const {} = useGetListSchool();
 
   React.useEffect(() => {
     setState((prevState) => ({
@@ -129,6 +158,16 @@ export default function ComboBoxFilter({ onFilter }: ComboBoxFilterProps) {
         }}
       >
         Lọc
+      </Button>
+      <Input type="text"></Input>
+      <Button
+        variant="outline"
+        className="bg-green-600 text-white"
+        onClick={() => {
+          dispatch(addSchool(modelAddSchool));
+        }}
+      >
+        Thêm trường
       </Button>
     </div>
   );
