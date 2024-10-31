@@ -55,7 +55,8 @@ export function useInitCheckInStudent() {
     queryFn: async () => {
       return BaseRequest.Get(`/${SUB_URL}/init-check-in-student/2`);
     },
-    retry: 2
+    retry: 2,
+    staleTime: 1000 * 60 * 60 * 12
   });
 }
 

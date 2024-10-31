@@ -18,16 +18,11 @@ import {
 import { useGetListSchool } from '@/queries/school.query';
 import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from '@/redux/store';
-import { Input } from '@/components/ui/input';
-import { addSchool } from '@/redux/school/slice';
+import { fetchSchool } from '@/redux/school.slice';
+import { useGetClassBySchool } from '@/queries/class.query';
 interface ComboBoxFilterProps {
   onFilter: (value) => void;
 }
-
-// const frameworks = [
-//   { value: 'next.js', label: 'Next.js' },
-//   { value: 'sveltekit', label: 'SvelteKit' }
-// ];
 
 function FrameworkPopover({
   open,
@@ -35,13 +30,10 @@ function FrameworkPopover({
   value,
   setValue,
   placeholder,
-  disabled
+  disabled,
+  data
 }) {
-  const schools = useSelector((state: RootState) => state.school.listSchool);
-  const frameworks = schools.map((school) => ({
-    value: String(school.id),
-    label: school.name
-  }));
+  console.log(data);
   return (
     <>
       <Popover open={open} onOpenChange={setOpen}>
@@ -53,9 +45,7 @@ function FrameworkPopover({
             className="w-[200px] justify-between"
             disabled={disabled}
           >
-            {value
-              ? frameworks.find((fw) => fw.value === value)?.label
-              : placeholder}
+            {value ? data.find((fw) => fw.value === value)?.label : placeholder}
             <ChevronsUpDown className="ml-2 h-4 w-4 shrink-0 opacity-50" />
           </Button>
         </PopoverTrigger>
@@ -65,7 +55,7 @@ function FrameworkPopover({
             <CommandList>
               <CommandEmpty>Không tìm thấy dữ liệu</CommandEmpty>
               <CommandGroup>
-                {frameworks.map((framework) => (
+                {data?.map((framework) => (
                   <CommandItem
                     key={framework.value}
                     value={framework.value}
@@ -94,81 +84,105 @@ function FrameworkPopover({
   );
 }
 
+interface typeState {
+  value1: number;
+  value2: number;
+  open1: boolean;
+  open2: boolean;
+}
+
 export default function ComboBoxFilter({ onFilter }: ComboBoxFilterProps) {
-  const [state, setState] = React.useState({
-    value1: '',
-    value2: '',
+  const [state, setState] = React.useState<typeState>({
+    value1: 0,
+    value2: 0,
     open1: false,
     open2: false
   });
-  const [modelAddSchool, setModelAddSchool] = React.useState({
-    id: 5,
-    name: 'Happy Kids Cơ Sở 1',
-    address: 'Buôn Trấp Krông Ana',
-    email: 'happykidscs1@gmail.com',
-    phone: '0941720502',
-    description: 'HappyKids Cơ Sở 1',
-    headMasterId: 1,
-    createdDate: '2024-09-21T01:26:39.2812272',
-    createdBy: 'admin',
-    isActive: true,
-    modifyDate: null,
-    modifyBy: null
-  });
   const dispatch = useDispatch();
-  const {} = useGetListSchool();
+  const schools = useSelector((state: RootState) => state.school.listSchool);
+  const [dataClass, setDataClass] = React.useState([]);
+  const { data } = useGetListSchool();
+  const { mutateAsync } = useGetClassBySchool();
+  const dataSchool = React.useMemo(() => {
+    return schools.map((school) => ({
+      value: String(school.id),
+      label: school.name
+    }));
+  }, [schools]);
+  React.useLayoutEffect(() => {
+    if (data) {
+      dispatch(fetchSchool(data));
+    }
+  }, [data, dispatch]);
 
   React.useEffect(() => {
-    setState((prevState) => ({
-      ...prevState,
-      value2: !prevState.value1 ? '' : prevState.value2
-    }));
-  }, [state.value1, state.value2]);
+    if (state.value1) {
+      function fetchData() {
+        mutateAsync(state.value1).then((res) => {
+          if (res) {
+            const dataClass = res.listObjects.map((classItem: any) => ({
+              value: String(classItem.id),
+              label: classItem.name
+            }));
+            setDataClass(dataClass);
+          }
+        });
+      }
+      fetchData();
+    }
+    return () => {
+      setDataClass([]);
+    };
+  }, [state.value1, mutateAsync]);
 
   return (
-    <div className="flex-cols flex space-x-3">
-      <div className="flex flex-col space-y-1">
+    <div className="items-end-end flex flex-col space-y-2 ">
+      <div className="flex items-center space-y-1">
+        <strong className="w-[150px]">Chọn trường:</strong>
         <FrameworkPopover
           open={state.open1}
-          setOpen={(open) => setState((prev) => ({ ...prev, open1: open }))}
+          setOpen={(open: any) =>
+            setState((prev) => ({ ...prev, open1: open }))
+          }
           value={state.value1}
-          setValue={(value) => setState((prev) => ({ ...prev, value1: value }))}
+          setValue={(value: any) =>
+            setState((prev) => ({ ...prev, value1: value }))
+          }
           placeholder="Chọn cơ sở..."
           disabled={false}
+          data={dataSchool}
         />
       </div>
-      <div className="flex flex-col space-y-1">
+      <div className="space-x- flex items-center">
+        <strong className="w-[150px]"> Chọn lớp:</strong>
         <FrameworkPopover
           open={state.open2}
-          setOpen={(open) => setState((prev) => ({ ...prev, open2: open }))}
+          setOpen={(open: any) =>
+            setState((prev) => ({ ...prev, open2: open }))
+          }
           value={state.value2}
-          setValue={(value) => setState((prev) => ({ ...prev, value2: value }))}
+          setValue={(value: any) =>
+            setState((prev) => ({ ...prev, value2: value }))
+          }
           placeholder="Chọn lớp..."
           disabled={!state.value1}
+          data={dataClass}
         />
       </div>
-      <Button
-        variant="outline"
-        className="bg-green-600 text-white"
-        onClick={() => {
-          onFilter({
-            school: state.value1,
-            class: state.value2
-          });
-        }}
-      >
-        Lọc
-      </Button>
-      <Input type="text"></Input>
-      <Button
-        variant="outline"
-        className="bg-green-600 text-white"
-        onClick={() => {
-          dispatch(addSchool(modelAddSchool));
-        }}
-      >
-        Thêm trường
-      </Button>
+      <div className="ml-[150px] flex">
+        <Button
+          variant="outline"
+          className="w-[150px] bg-green-600 text-white"
+          onClick={() => {
+            onFilter({
+              school: state.value1,
+              class: state.value2
+            });
+          }}
+        >
+          Lọc
+        </Button>
+      </div>
     </div>
   );
 }

@@ -1,5 +1,5 @@
 import { configureStore } from '@reduxjs/toolkit';
-import schoolReducer from './school/slice';
+import schoolReducer from './school.slice';
 import { useDispatch } from 'react-redux';
 export const store = configureStore({
   reducer: { school: schoolReducer }

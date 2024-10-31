@@ -16,15 +16,14 @@ export const PagingModel = {
   createdBy: ''
 };
 
-export function useGetListSchool() {
-  return useQuery({
-    queryKey: ['get_student2'],
-    queryFn: async () => {
+export function useGetClassBySchool() {
+  return useMutation({
+    mutationKey: ['get_class'],
+    mutationFn: async (id: number) => {
       return BaseRequest.Post(
-        `/${SUB_URL.SCHOOL}/get-list-school-by-paging`,
+        `/${SUB_URL.CLASS}/get-list-class-by-school-id/${id}`,
         PagingModel
       );
     }
-    // 10 minutes
   });
 }
